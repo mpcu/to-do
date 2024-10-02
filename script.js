@@ -1,7 +1,4 @@
-// Load tasks from local storage on page load
-window.onload = function() {
-  loadTasks();
-};
+document.addEventListener("DOMContentLoaded", loadTasks);
 
 function addTask() {
   const taskInput = document.getElementById("taskInput");
@@ -13,51 +10,37 @@ function addTask() {
   }
 
   const taskList = document.getElementById("taskList");
-
   const li = document.createElement("li");
   li.innerHTML = `${taskText} <button onclick="removeTask(this)">Delete</button>`;
-  
-  li.addEventListener("click", function() {
-    this.classList.toggle("completed");
-  });
 
   taskList.appendChild(li);
   taskInput.value = "";
 
-  saveTasks();  // Save tasks after adding
+  saveTasks(); // Save tasks after adding a new one
 }
-
 
 function removeTask(button) {
   const li = button.parentElement;
   li.remove();
-  saveTasks();  // Save tasks after removing
+  saveTasks(); // Save tasks after removing one
 }
 
 function saveTasks() {
+  const taskList = document.getElementById("taskList");
   const tasks = [];
-  document.querySelectorAll("#taskList li").forEach((li) => {
-    tasks.push(li.textContent.replace("Delete", "").trim());
+  taskList.querySelectorAll("li").forEach((li) => {
+    tasks.push(li.firstChild.textContent.trim());
   });
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 function loadTasks() {
-  const tasks = JSON.parse(localStorage.getItem("tasks"));
-  if (tasks) {
-    const taskList = document.getElementById("taskList");
-    tasks.forEach((task) => {
-      const li = document.createElement("li");
-      li.innerHTML = `${task} <button onclick="removeTask(this)">Delete</button>`;
-      taskList.appendChild(li);
-    });
-  }
+  const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  const taskList = document.getElementById("taskList");
+
+  savedTasks.forEach((task) => {
+    const li = document.createElement("li");
+    li.innerHTML = `${task} <button onclick="removeTask(this)">Delete</button>`;
+    taskList.appendChild(li);
+  });
 }
-
-
-document.getElementById("taskInput").addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
-    addTask();
-  }
-});
-
