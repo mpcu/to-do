@@ -21,3 +21,10 @@ function removeTask(button) {
   const li = button.parentElement;
   li.remove();
 }
+
+document.getElementById("taskInput").addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    addTask();
+  }
+});
+
