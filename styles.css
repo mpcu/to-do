@@ -18,7 +18,7 @@ body {
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  width: 300px;
+  width: 350px;
   text-align: center;
 }
 
@@ -31,14 +31,27 @@ h1 {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  gap: 10px;
+  flex-wrap: wrap; /* Wrap if screen is too small */
 }
 
-input {
-  width: 75%;
+input[type="text"] {
+  width: 60%;
+}
+
+input[type="time"] {
+  width: 15%;
   padding: 10px;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 10px;
   outline: none;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+input[type="time"]:focus {
+  border-color: #5c9dff;
+  box-shadow: 0 0 5px rgba(92, 157, 255, 0.5);
 }
 
 button {
@@ -84,4 +97,10 @@ li button:hover {
 li.completed {
   text-decoration: line-through;
   color: gray;
+}
+
+li .time {
+  font-size: 12px;
+  color: #888;
+  margin-left: 10px;
 }
