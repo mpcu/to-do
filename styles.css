@@ -80,3 +80,8 @@ li button {
 li button:hover {
   background-color: #ff4b4b;
 }
+
+li.completed {
+  text-decoration: line-through;
+  color: gray;
+}
