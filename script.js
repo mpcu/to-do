@@ -16,12 +16,17 @@ function addTask() {
 
   const li = document.createElement("li");
   li.innerHTML = `${taskText} <button onclick="removeTask(this)">Delete</button>`;
+  
+  li.addEventListener("click", function() {
+    this.classList.toggle("completed");
+  });
 
   taskList.appendChild(li);
   taskInput.value = "";
 
   saveTasks();  // Save tasks after adding
 }
+
 
 function removeTask(button) {
   const li = button.parentElement;
